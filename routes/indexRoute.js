@@ -42,7 +42,7 @@ router.get("/kereta", kereta);
 router.post("/kereta/tiket", cariTiketK);
 router.get("/kereta/tiket/data/:ruteK/:berangkatK/:dewasaK/:anakK/:bayiK", datapemesanK);
 router.post("/kereta/tiket/bayar/:ruteK/:berangkatK/:dewasaK/:anakK/:bayiK", pembayaranK);
-router.get("/kereta/tiket/e-tiket", cetakTiketK);
+router.post("/kereta/tiket/e-tiket", cetakTiketK);
 
 
 // folder pesawat
