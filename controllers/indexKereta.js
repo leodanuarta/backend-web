@@ -16,7 +16,34 @@ const tiketK = async(req, res, next) => {
 }
 
 const datapemesanK = async(req, res, next) => {
-  return res.render("keretaF/datapemesanK")
+  let key = req.params.ruteK;
+  let berangkat = req.params.berangkatK;
+  let dewasa = Number(req.params.dewasaK);
+  let anak = Number(req.params.anakK);
+  let bayi= Number(req.params.bayiK);
+
+  
+
+  let penumpang = dewasa + anak + bayi;
+  console.log(penumpang, key)
+
+  // fungsi untuk menampilkan detail tiket kereta
+  const { data: ruteK, error: errorRute } = await supabase
+  .from('ruteKereta')
+  .select(`*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)`)
+  .eq('ruteID', `${key}`)
+
+  console.log(ruteK[0]);
+
+  return res.render("keretaF/datapemesanK"
+  ,{
+    dataK: ruteK,
+    berangkatK: berangkat,
+    dewasaK: dewasa,
+    anakK: anak,
+    bayiK: bayi,
+    jumlahK: penumpang
+  })
 }
 
 const cetakTiketK = async (req, res, next) => {
@@ -24,7 +51,7 @@ const cetakTiketK = async (req, res, next) => {
 }
 
 // function untuk cari tiket kereta 
-const cariTiketK = async (req, res, next) => {
+const cariTiketK = async (req, res, next) => {  
   const asal = req.body.asalK;
   const tujuan = req.body.tujuanK;
   const berangkat = req.body.berangkatK;
