@@ -7,12 +7,42 @@ const kereta = async(req, res, next) => {
   return res.render("keretaF/kereta", {kotas: data});
 }
 
-const pembayaranK = async(req, res, next) => {
-  return res.render("keretaF/pembayaranKereta")
-}
 
 const tiketK = async(req, res, next) => {
   return res.render("keretaF/tiketKereta")
+}
+
+const pembayaranK = async(req, res, next) => {
+  let key = req.params.ruteK;
+  let berangkat = req.params.berangkatK;
+  let dewasa = Number(req.params.dewasaK);
+  let anak = Number(req.params.anakK);
+  let bayi= Number(req.params.bayiK);
+  // data pemesan
+  let titlePemesan = req.body.titlePemesan;
+  let namadepPemesan = req.body.namaDepanPemesan;
+  let namabelPemesan = req.body.namaBelakangPemesan;
+  let notelPemesan = req.body.notelPemesan;
+  let emailPemesan = req.body.emailPemesan;
+  
+  let penumpang = dewasa + anak + bayi;
+
+  // function untuk insert data ke table pemesan
+    const {data: insPemesan, error: errInsPemesan} = await supabase 
+    .from('pemesan')
+    .insert([
+      { 
+        titlePemesan: `${titlePemesan}`,
+        namadepPemesan: `${namadepPemesan}`,
+        namabelPemesan: `${namabelPemesan}`,
+        notelPemesan: `${notelPemesan}`,
+        emailPemesan: `${emailPemesan}`
+      }
+    ])
+    .select()
+  console.log(insPemesan)
+
+  return res.render("keretaF/pembayaranKereta")
 }
 
 const datapemesanK = async(req, res, next) => {
@@ -29,9 +59,9 @@ const datapemesanK = async(req, res, next) => {
 
   // fungsi untuk menampilkan detail tiket kereta
   const { data: ruteK, error: errorRute } = await supabase
-  .from('ruteKereta')
-  .select(`*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)`)
-  .eq('ruteID', `${key}`)
+    .from('ruteKereta')
+    .select(`*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)`)
+    .eq('ruteID', `${key}`)
 
   console.log(ruteK[0]);
 

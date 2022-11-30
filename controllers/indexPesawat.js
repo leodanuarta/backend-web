@@ -21,8 +21,8 @@ const pembayaranP = async (req, res, next) => {
   let notelPemesan = req.body.notelPemesan;
   let emailPemesan = req.body.emailPemesan;
 
-  console.log(berangkat)
-  console.log(req.params.berangkatP)
+  // console.log(berangkat)
+  // console.log(req.params.berangkatP)
 
   // perhitungan jumlah penumpang
   let jumlahPenumpang = dewasa + anak + bayi;
