@@ -89,7 +89,8 @@ const pembayaranK = async(req, res, next) => {
       .from('transaksi')
       .insert([
         {
-          noTiket: arr
+          noTiket: arr,
+          keterangan: 'kereta',
         }
       ])
       .select()
@@ -198,4 +199,5 @@ module.exports = {
   datapemesanK,
   cetakTiketK,
   cariTiketK,
+  
 }

@@ -91,7 +91,8 @@ let namabelP = req.body.namaBelakangPenumpang;
       .from('transaksi')
       .insert([
         {
-          noTiket: arr
+          noTiket: arr,
+          keterangan: 'pesawat'
         }
       ])
       .select()
@@ -193,6 +194,12 @@ const cariTiket = async (req, res, next) => {
 
 }
 
+const pdftiketP = async (req, res, next) => {
+
+
+  return res.render('pesawatF/e-tiket')
+}
+
 
 module.exports ={
   pesawat,
@@ -200,4 +207,5 @@ module.exports ={
   datapemesanP,
   cetakTiketP,
   cariTiket,
+  pdftiketP,
 }
