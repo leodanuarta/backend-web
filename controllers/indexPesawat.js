@@ -157,13 +157,12 @@ const cariTiket = async (req, res, next) => {
   const tujuan = req.body.tujuanP;
   const berangkat = req.body.berangkatP;
 
-  const berangkatZ = berangkat + "Z"
 
-  const tanggal = new Date(berangkatZ)
-
-  const tanggalP = () => {
-    return [tanggal.getDate(), tanggal.getMonth() + 1, tanggal.getFullYear()].join('-')
-  }
+  // const berangkatZ = berangkat + "Z"
+  // const tanggal = new Date(berangkatZ)
+  // const tanggalP = () => {
+  //   return [tanggal.getDate(), tanggal.getMonth() + 1, tanggal.getFullYear()].join('-')
+  // }
 
 
   const kelasP = req.body.kelasP;
@@ -183,7 +182,7 @@ const cariTiket = async (req, res, next) => {
   , {
     asalP: asal,
     tujuanP: tujuan,
-    berangkatP: tanggalP(),
+    berangkatP: berangkat,
     kelasP: kelasP,
     dewasaP: dewasa,
     anakP: anak,
