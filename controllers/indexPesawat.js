@@ -21,12 +21,8 @@ const pembayaranP = async (req, res, next) => {
   let notelPemesan = req.body.notelPemesan;
   let emailPemesan = req.body.emailPemesan;
 
-  // console.log(berangkat)
-  // console.log(req.params.berangkatP)
-
   // perhitungan jumlah penumpang
   let jumlahPenumpang = dewasa + anak + bayi;
-
   
   // function untuk insert data ke table pemesan
   const {data: insPemesan, error: errInsPemesan} = await supabase 
@@ -43,61 +39,57 @@ const pembayaranP = async (req, res, next) => {
     .select()
   console.log(insPemesan)
   
+  // fungsi untuk input data penumpang
+  let titleP = req.body.titlePenumpang;
+  let namadepP = req.body.namaDepanPenumpang;
+  let namabelP = req.body.namaBelakangPenumpang;
 
-
-// fungsi untuk input data penumpang
-let titleP = req.body.titlePenumpang;
-let namadepP = req.body.namaDepanPenumpang;
-let namabelP = req.body.namaBelakangPenumpang;
-
- for(let i = 0; i != jumlahPenumpang; i++){
-   const {data: insTiket, error: errInsTiket} = await supabase
-    .from('tiketPesawat')
-    .insert([
-      {
-        pemesanID: `${insPemesan[0].pemesanID}`,
-        ruteP: `${key}`,
-        tanggalP: `${berangkat}`,
-        titleP: `${titleP[i]}`,
-        namadepP: `${namadepP[i]}`, 
-        namabelP:`${namabelP[i]}`,
-      }
-      ])
-      .select()
-      console.log('insert ke ' + i)
-      console.log(insTiket)
-  }  
-  
-
-// fungsi untuk insert table transaksi
-
-  // fungsi ini untuk mencari tiketID yang satu pemesanID
-  const {data: tiketID, error: errTikeID} = await supabase
-    .from('tiketPesawat')
-    .select()
-    .match({
-      pemesanID: insPemesan[0].pemesanID
-    })
-
-    var arr = [];
-    
-    for(let i = 0; i != tiketID.length; i++) {
-      arr.push(tiketID[i].tiketpid)
-    }
-    console.log(arr)
-    
-    // fungsi untuk insert data ID Tiket ke dalam table transaksi
-    const {data: insTrans, error: errInsTrans} = await supabase
-      .from('transaksi')
+  for(let i = 0; i != jumlahPenumpang; i++){
+    const {data: insTiket, error: errInsTiket} = await supabase
+      .from('tiketPesawat')
       .insert([
         {
-          noTiket: arr,
-          keterangan: 'pesawat'
+          pemesanID: `${insPemesan[0].pemesanID}`,
+          ruteP: `${key}`,
+          tanggalP: `${berangkat}`,
+          titleP: `${titleP[i]}`,
+          namadepP: `${namadepP[i]}`, 
+          namabelP:`${namabelP[i]}`,
         }
-      ])
+        ])
+        .select()
+        console.log('insert ke ' + i)
+        console.log(insTiket)
+    }  
+    
+
+  // fungsi untuk insert table transaksi
+
+    // fungsi ini untuk mencari tiketID yang satu pemesanID
+    const {data: tiketID, error: errTikeID} = await supabase
+      .from('tiketPesawat')
       .select()
-    
-    
+      .match({
+        pemesanID: insPemesan[0].pemesanID
+      })
+
+      var arr = [];
+      
+      for(let i = 0; i != tiketID.length; i++) {
+        arr.push(tiketID[i].tiketpid)
+      }
+      console.log(arr)
+      
+      // fungsi untuk insert data ID Tiket ke dalam table transaksi
+      const {data: insTrans, error: errInsTrans} = await supabase
+        .from('transaksi')
+        .insert([
+          {
+            noTiket: arr,
+            keterangan: 'pesawat'
+          }
+        ])
+        .select()
 
   // fungsi untuk menampilkan data rute pesawat                                             
   const { data: rutePesawat, error: errorRute } = await supabase
@@ -105,17 +97,16 @@ let namabelP = req.body.namaBelakangPenumpang;
     .select(`*, pesawat (namaMaskapai) , asal: provinsiAsal (namaProvinsi), tujuan: provinsiTujuan (namaProvinsi)`)
     .eq('ruteID', `${key}`)
 
-
   return res.render("pesawatF/pembayaranPesawat"
   ,{
     dataP: rutePesawat,
     tanggalP: berangkat,
     penumpang: jumlahPenumpang,
     orderID: insTrans,
-
   })
 }
 
+// function untuk menampilkan detail dari tiket pesawat
 const datapemesanP = async (req, res, next) => {
   const key = req.params.ruteP;
   const berangkat = req.params.berangkatP;
@@ -145,11 +136,37 @@ const datapemesanP = async (req, res, next) => {
   })
 }
 
+// function untuk menampilkan e-tiket 
 const cetakTiketP = async (req, res, next) => {
-  return res.render("pesawatF/cetakTiketP")
+  let orderID = req.params.orderID;
+
+  orderID = orderID - 7000;
+
+  const {data: etiketP, error: errEtiketP} = await supabase
+    .from('transaksi')
+    .select()
+    .eq('transaksiID', orderID)
+
+
+  let nTikets = etiketP[0].noTiket;
+  let keterangan = etiketP[0].keterangan;
+
+  const results = await dataTiket(keterangan, nTikets);
+  console.log(results[0][0].ruteK)
+
+  const {data: allData, error: errorallData} = await supabase
+                  .from('ruteKereta')
+                  .select(`*, 
+                          kereta(namaKereta)`)
+                  .eq('ruteID', results[0][0].ruteK);
+  
+ 
+  return res.render('pesawatF/cetakTiketP',{
+    dataPenumpang: results,
+    orderID: orderID + 7000,
+    dataK: allData,
+  })
 }
-
-
 
 // function untuk mengambil data 
 const cariTiket = async (req, res, next) => {
@@ -194,12 +211,29 @@ const cariTiket = async (req, res, next) => {
 
 }
 
-const pdftiketP = async (req, res, next) => {
-
-
-  return res.render('pesawatF/e-tiket')
+// function bukan callback untuk mencari data-data penumpang
+async function dataTiket(ket, nTikets){
+  let results = [];
+  if (ket == 'kereta'){
+    for (let nTiket of nTikets) {
+      const {data: penumpangs, error: errPenumpang} = await supabase
+        .from('tiketKereta')
+        .select()
+        .eq('tiketpid', nTiket)
+        results.push(penumpangs)
+      }
+    return results;
+  } else {
+      for (let nTiket of nTikets) {
+        const {data: penumpangs, error: errPenumpang} = await supabase
+        .from('tiketPesawat')
+        .select()
+        .eq('tiketpid', nTiket)
+        result.push(penumpangs)
+      }
+      return results;
+  }
 }
-
 
 module.exports ={
   pesawat,
@@ -207,5 +241,4 @@ module.exports ={
   datapemesanP,
   cetakTiketP,
   cariTiket,
-  pdftiketP,
 }

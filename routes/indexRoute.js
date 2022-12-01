@@ -11,11 +11,11 @@ const { destinasiBali,  destinasiJakarta, destinasiLombok
 , destinasiJogja, destinasiBogor} = require('../controllers/indexDestinasi');
 
 //source kereta
-const { kereta, pembayaranK, tiketK, datapemesanK, cetakTiketK, cariTiketK, pdftiketK } = require('../controllers/indexKereta');
+const { kereta, pembayaranK, datapemesanK, cetakTiketK, cariTiketK } = require('../controllers/indexKereta');
 
 
 // source pesawat 
-const { pesawat, datapemesanP, pembayaranP, cetakTiketP, cariTiket, pdftiketP } = require('../controllers/indexPesawat');
+const { pesawat, datapemesanP, pembayaranP, cetakTiketP, cariTiket } = require('../controllers/indexPesawat');
 
 
 // source login
@@ -43,7 +43,7 @@ router.post("/kereta/tiket", cariTiketK);
 router.get("/kereta/tiket/data/:ruteK/:berangkatK/:dewasaK/:anakK/:bayiK", datapemesanK);
 router.post("/kereta/tiket/bayar/:ruteK/:berangkatK/:dewasaK/:anakK/:bayiK", pembayaranK);
 router.post("/kereta/tiket/e-tiket/:orderID", cetakTiketK);
-// router.get("/kereta/tiket/e-tiket/:orderID/hasil", pdftiketK);
+
 
 
 // folder pesawat
@@ -53,7 +53,6 @@ router.post("/pesawat/tiket", cariTiket);
 router.get("/pesawat/tiket/data/:ruteP/:berangkatP/:dewasaP/:anakP/:bayiP", datapemesanP);
 router.post("/pesawat/tiket/bayar/:ruteP/:berangkatP/:dewasaP/:anakP/:bayiP", pembayaranP);
 router.post("/pesawat/tiket/e-tiket/:orderID", cetakTiketP);
-router.get("/pesawat/tiket/e-tiket/:orderID/hasil", pdftiketP);
 
 
 // folder users
