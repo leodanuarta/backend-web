@@ -100,11 +100,11 @@ form#kode input[type=text]:focus {
 .btn-konfirm{
     width: 350px;
     height: 35px;
-    /* margin-right: auto; */
+    /* margin-left: auto; */
     position: absolute;
     border: none;
     border-radius: 50px; 
-    /* margin-top: 35px; */
+    /* margin-top: 56px; */
     padding: 0px 70px;
 }
 
