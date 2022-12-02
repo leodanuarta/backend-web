@@ -3,7 +3,7 @@ const { celebrate } = require('celebrate');
 const router = express.Router();
 
 // tanpa login
-const { getIndex, cekOrder,
+const { getIndex, cekOrder, Etiket, userIndex
 } = require('../controllers/indexController');
 
 // source destinasi tanpa login
@@ -19,15 +19,20 @@ const { pesawat, datapemesanP, pembayaranP, cetakTiketP, cariTiket } = require('
 
 
 // source login
-const { loginReg } = require('../controllers/indexLogin');
+const { login, userLogin } = require('../controllers/indexLogin');
+
+// source regist
+const { regist } = require('../controllers/indexRegister');
 
 
 // tarik file ejs disini
 // index.ejs
 router.get("/", getIndex);
+router.post("/", userIndex);
 
 // cekorder.ejs
 router.get("/cekorder", cekOrder);
+router.post("/cekorder/e-tiket", Etiket);
 
 // destinasi ejs
 router.get("/destinasibali", destinasiBali);
@@ -56,7 +61,10 @@ router.post("/pesawat/tiket/e-tiket/:orderID", cetakTiketP);
 
 
 // folder users
-router.get("/login", loginReg);
+
+router.get("/login", login);
+router.post("/login", userLogin);
+router.get("/register", regist);
 
 
 module.exports = router;

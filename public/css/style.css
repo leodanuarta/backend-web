@@ -20,6 +20,15 @@
     height: 400px;
 }
 
+.text{
+    font-weight: 1000;
+    font-size: 40px;
+    color: rgba(225, 225, 225, 0.9);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 2px;
+}
+
 .container-search{
     margin-top :50px;
 }

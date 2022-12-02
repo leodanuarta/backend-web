@@ -106,13 +106,13 @@
         <div class="col-md-4">
           <p>Nama Kereta</p>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 text-center">
           <p>Berangkat</p>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 text-center">
           <p>Tiba</p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 text-center">
           <p>Harga/orang</p>
         </div>
       </div>
@@ -123,19 +123,20 @@
               <h5 class=""><%= tiketK.kereta.namaKereta %></h5>
               <p><%= tiketK.kelas %></p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 text-center">
               <p><%= tiketK.jamBerangkat %></p>
               <P style="margin-top: -10px"><%= tiketK.kotaAsal %></P>
             </div>
-            <div class="col-md-2"> 
+            <div class="col-md-2 text-center"> 
               <p><%= tiketK.jamTiba %></p>
               <P style="margin-top: -10px"><%= tiketK.kotaTujuan %></P>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 text-center">
               <!-- <span class="harga-pesawat1">Rp</span>
               <span class="harga-pesawat2">100</span>
               <span class="harga-pesawat1">.888,-</span> -->
-              <span class="harga-pesawat1">Rp <%= tiketK.harga %></span> 
+              <span class="harga-pesawat1">Rp</span>
+              <span class="harga-pesawat2"> <%= tiketK.harga %></span><br>
               <a style="text-decoration: none;"  href="/kereta/tiket/data/<%= tiketK.ruteID %>/<%= berangkatK %>/<%= dewasaK %>/<%= anakK %>/<%= bayiK %>">
                 <button type="submit" class="btn-caritiket bg-warning text-white font-weight-bold text-center">
                   Pesan Tiket Pergi

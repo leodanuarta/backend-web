@@ -137,8 +137,18 @@
         <% if (kelasP == tiketP.kelas) { %>
             <div class="row order " >
               <div class="col-md-4">
-                <p class=""><%= tiketP.pesawat.namaMaskapai %></p>
-                <img style="height: 80; width: 120;" src="https://awsimages.detik.net.id/customthumb/2009/07/23/4/Garuda-Logo-Vertical-dalam.jpg?w=100&q=90">
+                <!-- <p class=""><%= tiketP.pesawat.namaMaskapai %></p> -->
+                <% if (tiketP.airlineID == "GA" ) { %>
+                  <img style="width: 160;" src="/assets/GA.png">
+                <% } else if (tiketP.airlineID == "QZ" ) { %>
+                  <img style="width: 160;" src="/assets/QZ.png">
+                <% } else if (tiketP.airlineID == "JT" ) { %>
+                  <img style="height: 60;" src="/assets/JT.png">
+                <% } else if (tiketP.airlineID == "ID" ) { %>
+                  <img style="height: 70;" src="/assets/ID.png">
+                <% } else if (tiketP.airlineID == "QG" ) { %>
+                  <img style="height: 50;" src="/assets/QG.png">
+                <% } %>
               </div>
               <div class="col-md-2 text-center">
                 <p><%= tiketP.jamBerangkat %></p>

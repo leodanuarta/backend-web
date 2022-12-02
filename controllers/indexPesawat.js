@@ -1,4 +1,3 @@
-const { compareSync } = require('bcrypt');
 const supabase = require('../database');
 
 
@@ -173,15 +172,13 @@ const cetakTiketP = async (req, res, next) => {
                   .select(`*, 
                           pesawat(namaMaskapai), asal: provinsiAsal(namaProvinsi, namaBandara), tujuan: provinsiTujuan(namaProvinsi, namaBandara)`)
                   .eq('ruteID', results[0].ruteP);
-  // console.log(results)
-  // results.forEach((item, index) => {
-  //   console.log(item[0].tiketpid)
-  // })
+
   console.log(allData)
   return res.render('pesawatF/cetakTiketP',{
     dataPenumpang: results,
     orderID: orderID + 7000,
     dataP: allData,
+    ket : 'main'
   })
 }
 

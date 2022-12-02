@@ -188,6 +188,7 @@ const cetakTiketK = async (req, res, next) => {
     orderID: orderID + 7000,
     dataK: allData,
     dataPemesan: dataPemesan,
+    ket : "main"
   })
 }
 

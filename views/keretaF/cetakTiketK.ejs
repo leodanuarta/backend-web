@@ -10,7 +10,11 @@
 </head>
 <body>
    <!--Navbar -->
+   <% if (ket == 'cekorder') { %>
+    <%- include('../partials/secondNavbar',  {page: 'cekorder'}); %>
+  <% } else { %>
    <%- include('../partials/tiketNavbar',  {page: 'cetak'}); %>
+  <% } %>
 
   <div id="background-loading">
     <span class="loading-text">LOADING</span>
@@ -89,16 +93,16 @@
             <tr>
               <th>No</th>
               <th>Nama Penumpang</th>
-              <th>No. Tiket</th>
-              <th>Kelas</th>
+              <th class="text-center">No. Tiket</th>
+              <th class="text-center">Kelas</th>
            </tr>
           </thead>
          <% dataPenumpang.forEach((data, index) => { %>
             <tr>
               <th><%= index + 1 %></th>
               <td><%= data.titleK%> <%= data.namadepK %> <%= data.namabelK %> </td>
-              <td><%= data.tiketpid %></td>
-              <td><%= dataK[0].kelas%></td>
+              <td class="text-center"><%= data.tiketpid %></td>
+              <td class="text-center"><%= dataK[0].kelas%></td>
             </tr>
          <% }) %>
         </table>
