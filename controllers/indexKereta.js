@@ -142,24 +142,13 @@ const datapemesanK = async(req, res, next) => {
 async function dataTiket(ket, nTikets){
   let results = [];
   if (ket == 'kereta'){
-    for (let nTiket of nTikets) {
-      const {data: penumpangs, error: errPenumpang} = await supabase
-        .from('tiketKereta')
-        .select()
-        .eq('tiketpid', nTiket)
-        results.push(penumpangs)
-      }
+    const {data: penumpangs, error: errPenumpang} = await supabase
+      .from('tiketKereta')
+      .select()
+      .in('tiketpid', nTikets)
+    results = penumpangs
     return results;
-  } else {
-      for (let nTiket of nTikets) {
-        const {data: penumpangs, error: errPenumpang} = await supabase
-        .from('tiketPesawat')
-        .select()
-        .eq('tiketpid', nTiket)
-        result.push(penumpangs)
-      }
-      return results;
-  }
+  } 
 }
 
 // function unutuk menampilkan e-tiket kereta
@@ -168,28 +157,37 @@ const cetakTiketK = async (req, res, next) => {
 
   orderID = orderID - 7000;
 
-  const {data: etiketP, error: errEtiketP} = await supabase
+  const {data: etiketK, error: errEtiketK} = await supabase
     .from('transaksi')
     .select()
     .eq('transaksiID', orderID)
-
-  let nTikets = etiketP[0].noTiket;
-  let keterangan = etiketP[0].keterangan;
+  console.log(etiketK)
+  let nTikets = etiketK[0].noTiket;
+  let keterangan = etiketK[0].keterangan;
+  console.log(keterangan, nTikets)
 
   const results = await dataTiket(keterangan, nTikets);
-  console.log(results[0][0].ruteK)
+  console.log(results[0])
 
   const {data: allData, error: errorallData} = await supabase
-                  .from('ruteKereta')
-                  .select(`*, 
-                          kereta(namaKereta)`)
-                  .eq('ruteID', results[0][0].ruteK);
-  
+    .from('ruteKereta')
+    .select(`*, 
+            kereta(namaKereta), asal: kotaAsal(namaKota, namaStasiun), tujuan: kotaTujuan(namaKota, namaStasiun)`)
+    .eq('ruteID', results[0].ruteK);
+
+  const {data: dataPemesan, errors: errorsPemesan} = await supabase
+    .from('pemesan')
+    .select()
+    .eq('pemesanID', results[0].pemesanID)
+  // console.log(dataPemesan)  
+  // console.log(results)
+
  
   return res.render('keretaF/cetakTiketK',{
     dataPenumpang: results,
     orderID: orderID + 7000,
     dataK: allData,
+    dataPemesan: dataPemesan,
   })
 }
 
@@ -198,14 +196,6 @@ const cariTiketK = async (req, res, next) => {
   const asal = req.body.asalK;
   const tujuan = req.body.tujuanK;
   const berangkat = req.body.berangkatK;
-  
-  const berangkatZ = berangkat + "Z";
-
-  const tanggal = new Date(berangkatZ);
-
-  const tanggalK = () => {
-    return [tanggal.getDate(), tanggal.getMonth() + 1, tanggal.getFullYear()].join('-')
-  }
 
 
   const dewasa = req.body.dewasaK;
@@ -219,12 +209,12 @@ const cariTiketK = async (req, res, next) => {
                           kereta(namaKereta)`)
                   .match({kotaAsal : `${asal}`, kotaTujuan: `${tujuan}`} );
 
-  console.log(allData);
-  console.log(kotaK)
+  // console.log(allData);
+  // console.log(kotaK)
   return res.render('keretaF/tiketKereta', {
     asalK: asal,
     tujuanK: tujuan,
-    berangkatK: tanggalK(),
+    berangkatK: berangkat,
     dewasaK: dewasa,
     anakK: anak,
     bayiK: bayi,

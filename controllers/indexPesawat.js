@@ -1,3 +1,4 @@
+const { compareSync } = require('bcrypt');
 const supabase = require('../database');
 
 
@@ -136,6 +137,19 @@ const datapemesanP = async (req, res, next) => {
   })
 }
 
+async function dataTiket(ket, nTikets) {
+  let results = [];
+  if (ket == 'pesawat'){
+    const {data: penumpangs, error: errPenumpang} = await supabase
+      .from('tiketPesawat')
+      .select()
+      .in('tiketpid', nTikets)
+    results = penumpangs
+    return results;
+  } 
+}
+
+
 // function untuk menampilkan e-tiket 
 const cetakTiketP = async (req, res, next) => {
   let orderID = req.params.orderID;
@@ -152,19 +166,22 @@ const cetakTiketP = async (req, res, next) => {
   let keterangan = etiketP[0].keterangan;
 
   const results = await dataTiket(keterangan, nTikets);
-  console.log(results[0][0].ruteK)
+  console.log(results)
 
   const {data: allData, error: errorallData} = await supabase
-                  .from('ruteKereta')
+                  .from('rutePesawat')
                   .select(`*, 
-                          kereta(namaKereta)`)
-                  .eq('ruteID', results[0][0].ruteK);
-  
- 
+                          pesawat(namaMaskapai), asal: provinsiAsal(namaProvinsi, namaBandara), tujuan: provinsiTujuan(namaProvinsi, namaBandara)`)
+                  .eq('ruteID', results[0].ruteP);
+  // console.log(results)
+  // results.forEach((item, index) => {
+  //   console.log(item[0].tiketpid)
+  // })
+  console.log(allData)
   return res.render('pesawatF/cetakTiketP',{
     dataPenumpang: results,
     orderID: orderID + 7000,
-    dataK: allData,
+    dataP: allData,
   })
 }
 
@@ -210,29 +227,7 @@ const cariTiket = async (req, res, next) => {
 
 }
 
-// function bukan callback untuk mencari data-data penumpang
-async function dataTiket(ket, nTikets){
-  let results = [];
-  if (ket == 'kereta'){
-    for (let nTiket of nTikets) {
-      const {data: penumpangs, error: errPenumpang} = await supabase
-        .from('tiketKereta')
-        .select()
-        .eq('tiketpid', nTiket)
-        results.push(penumpangs)
-      }
-    return results;
-  } else {
-      for (let nTiket of nTikets) {
-        const {data: penumpangs, error: errPenumpang} = await supabase
-        .from('tiketPesawat')
-        .select()
-        .eq('tiketpid', nTiket)
-        result.push(penumpangs)
-      }
-      return results;
-  }
-}
+
 
 module.exports ={
   pesawat,

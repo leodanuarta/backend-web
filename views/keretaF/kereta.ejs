@@ -93,7 +93,7 @@
                     <label for="select">Dari</label>
                     <img class="ikonn" src="/assets/train1.png">
                     <div class="hihi">
-                      <select name="asalK" class="browser-default custom-select mb-4" id="select" required>
+                      <select name="asalK" class="browser-default custom-select mb-4" id="asalK" required>
                         <% for (let kota of kotas) { %>
                           <option name="kotaK" value="<%= kota.stationID %>"><%= kota.namaKota %></option>
                         <% } %>
@@ -107,12 +107,13 @@
                     <label for="select">Ke</label>
                     <img class="ikonn" src="assets/train2.png">
                     <div class="hihi">
-                      <select name="tujuanK" class="browser-default custom-select mb-4" id="select" required>
+                      <select name="tujuanK" class="browser-default custom-select mb-4" id="tujuanK" required>
                         <% for (let kota of kotas) { %>
                           <option value="<%= kota.stationID %>"><%= kota.namaKota %></option>
                         <% } %>
                       </select>
                     </div>
+                    <span class="" id="message"></span>
                   </div>
                 </div> 
               </div>

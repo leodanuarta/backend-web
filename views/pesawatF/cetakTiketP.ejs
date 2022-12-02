@@ -12,10 +12,10 @@
    <!--Navbar -->
    <%- include('../partials/tiketNavbar',  {page: 'cetak'}); %>
 
-  <div id="background-loading">
+  <!-- <div id="background-loading">
     <span class="loading-text">LOADING</span>
     <div class="loader"></div>
-  </div>
+  </div> -->
 
   <br>
 
@@ -33,39 +33,57 @@
     <div class="row box" style="margin-top: 2%;">
       <div class="col-md-3 pl-4">
         <img style="height: 80; width: 120;" src="https://awsimages.detik.net.id/customthumb/2009/07/23/4/Garuda-Logo-Vertical-dalam.jpg?w=120&q=90">
-        <p class="pesawat">Garuda Indonesia</p>
-        <p style="margin-top: -10px">Ekonomi</p>
+        <p class="pesawat">
+          <%= dataP[0].pesawat.namaMaskapai %>
+        </p>
+        <p style="margin-top: -10px">
+          <% if (dataP[0].kelas == 'FC') { %>
+            First Class
+          <% } else if (dataP[0].kelas == 'EC') { %>
+            Economy
+          <% } else { %>    
+            Business
+          <% } %> %>
+        </p>
       </div>
       <div class="col-md-5" style="padding-left: 50px;">
-        <h5>Kamis, 11 Oktober 2022</h5>
+        <h5><%= dataPenumpang[0].tanggalP %></h5>
         <div class="bar1">
-          <span class="font-weight-bold">00.00</span>
+          <span class="font-weight-bold"><%= dataP[0].jamBerangkat %></span>
           <span class="mx-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
               <circle cx="8" cy="8" r="8"/>
             </svg>
           </span>
-          <span>Jakarta (CGK)</span><br>
-          <span class="bandara">Soekarno Hatta</span>
+          <span>
+           <%= dataP[0].asal.namaProvinsi %>
+           (<%= dataP[0].provinsiAsal %>)
+          </span>
+          <br>
+          <span class="bandara"><%=dataP[0].asal.namaBandara %> </span>
         </div>
         <br>
         <div class="bar2">
-          <span class="font-weight-bold">02.00</span>
+          <span class="font-weight-bold"><%= dataP[0].jamTiba %></span>
           <span class="mx-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
             </svg>
           </span>
-          <span>Depansar (DPS)</span><br>
-          <span class="bandara">I Gusti Ngurah Rai</span>
+          <span>
+            <%= dataP[0].tujuan.namaProvinsi %>
+            (<%= dataP[0].provinsiTujuan %>)
+          </span>
+            <br>
+          <span class="bandara"><%= dataP[0].tujuan.namaBandara %> </span>
         </div>
       </div>
 
       <div class="col-md-4" style="padding-left: 20px;">
         <h4 class="judulorder">Order ID</h4>
-        <h3 class="judulorder1"> 8001 </h3>
+        <h3 class="judulorder1"> <%= orderID %> </h3>
         <h4 class="judulorder">Airline Booking Code</h4>
-        <h3 class="judulorder1"> CGDPE1 </h3>
+        <h3 class="judulorder1"> <%= dataP[0].ruteID %> </h3>
       </div>
     </div>
     
@@ -99,6 +117,7 @@
 
     <div class="box">
       <table class="table table-striped">
+    
         <thead class="thead-dark">
           <tr>
             <th scope="col">No</th>
@@ -108,42 +127,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td> 
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
-              </svg>
-            20 Kg
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td> 
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
-              </svg>
-            20 Kg
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            
-            <td> 
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
-              </svg>
-            20 Kg
-            </td>
-          </tr>
+          <% dataPenumpang.forEach((data, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= data.titleP %> <%= data.namadepP %> <%= data.namabelP %> </td>
+              <td><%= data.tiketpid %></td>
+              <td> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+                  <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+              20 Kg
+              </td>
+            </tr>
+            <% }) %>
         </tbody>
       </table>
     </div>

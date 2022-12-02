@@ -12,10 +12,10 @@
    <!--Navbar -->
    <%- include('../partials/tiketNavbar',  {page: 'cetak'}); %>
 
-  <!-- <div id="background-loading">
+  <div id="background-loading">
     <span class="loading-text">LOADING</span>
     <div class="loader"></div>
-  </div> -->
+  </div>
 
   <br>
 
@@ -37,78 +37,71 @@
           <table class="table-bordered">
             <tr>
               <th class="colTab">Title</th>
-              <td class="isiTab"> Nona</td>
+              <td class="isiTab"> <%= dataPemesan[0].titlePemesan %></td>
             </tr>
             <tr>
               <th class="colTab">Nama</th>
-              <td class="isiTab"> Regina</td>
+              <td class="isiTab"><%= dataPemesan[0].namadepPemesan %> <%= dataPemesan[0].namabelPemesan %></td>
             </tr>
             <tr>
               <th class="colTab">Nomor HP</th>
-              <td class="isiTab"> 08765543221</td>
+              <td class="isiTab"> 0<%= dataPemesan[0].notelPemesan %></td>
             </tr>
             <tr>
               <th class="colTab">Email</th>
-              <td class="isiTab"> regina@gmail.com</td>
+              <td class="isiTab"> <%= dataPemesan[0].emailPemesan %></td>
             </tr>
           </table>
         </div>
       </div>
       <div class="col barcode">
         <h4 class="judulorder">Order ID</h4>
-        <h3 class="judulorder1"> 8001 </h3>
+        <h3 class="judulorder1"> <%= orderID %> </h3>
           
         <img class="GBarcode" src="/assets/barcode (2).png">
-        <p >JKBGBSUJD</p>
+        <p ><%= dataK[0].ruteID %></p>
       </div>
     </div>
 
     <div class="box kedua">
-      <!-- <div class="col dataPerjalanan"> -->
-        <h5 class="judul">Data Perjalanan</h5>
-        <!-- <div class="row tabel"> -->
-          <table class="table table-striped text-center boxdata2">
-            <thead class="thead-dark">
-                <tr>
-                <th>Tanggal</th>
-                <th>Nama Kereta</th>
-                <th>Berangkat</th>
-                <th>Tiba</th>
-              </tr>
-            </thead>
+      <h5 class="judul">Data Perjalanan</h5>
+        <table class="table table-striped text-center boxdata2">
+          <thead class="thead-dark">
             <tr>
-              <td>11 Oktober 2022</td>
-              <td>Argo Parahayangan 38</td>
-              <td>00.00 WIB<br>Jakarta</td>
-              <td>02.00 WIB<br>Bandung</td>
-            </tr>  
-          </table>
-        </div>
-      <!-- </div> -->
-    <!-- </div> -->
-    
-    <div class="box ketiga" style="margin-top: 3%;">
-      <!-- <div class="col dataPenumpang"> -->
-        <h5 class="judul">Data Penumpang</h5>
-        <!-- <div class="row tabel"> -->
-          <table class="table table-striped boxdata2">
-            <thead class="thead-dark">
-              <tr>
-                <th>No</th>
-                <th>Nama Penumpang</th>
-                <th>No. Tiket</th>
-                <th>Kelas</th>
-              </tr>
-            </thead>
-            <tr>
-              <th>1</th>
-              <td>Regina Martha</td>
-              <td>08123</td>
-              <td>Ekonomi</td>
+              <th>Tanggal</th>
+              <th>Nama Kereta</th>
+              <th>Berangkat</th>
+              <th>Tiba</th>
             </tr>
-          </table>
-        <!-- </div> -->
-      <!-- </div> -->
+          </thead>
+            <tr>
+              <td><%= dataPenumpang[0].tanggalK %></td>
+              <td><%= dataK[0].kereta.namaKereta %></td>
+              <td><%= dataK[0].jamBerangkat %> WIB<br><%= dataK[0].asal.namaKota %><br><%= dataK[0].asal.namaStasiun %></td>
+              <td><%= dataK[0].jamTiba %> WIB<br><%= dataK[0].tujuan.namaKota %><br><%= dataK[0].tujuan.namaStasiun %></td>
+            </tr>  
+        </table>
+    </div>
+    <div class="box ketiga" style="margin-top: 3%;">
+      <h5 class="judul">Data Penumpang</h5>
+        <table class="table table-striped boxdata2">
+          <thead class="thead-dark">
+            <tr>
+              <th>No</th>
+              <th>Nama Penumpang</th>
+              <th>No. Tiket</th>
+              <th>Kelas</th>
+           </tr>
+          </thead>
+         <% dataPenumpang.forEach((data, index) => { %>
+            <tr>
+              <th><%= index + 1 %></th>
+              <td><%= data.titleK%> <%= data.namadepK %> <%= data.namabelK %> </td>
+              <td><%= data.tiketpid %></td>
+              <td><%= dataK[0].kelas%></td>
+            </tr>
+         <% }) %>
+        </table>
     </div>
   </div>
   
