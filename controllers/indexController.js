@@ -96,7 +96,7 @@ const userIndex = async (req, res, next) => {
     password: req.body.password,
   })
   const { data: { users }, error } = await supabase.auth.admin.listUsers()
-  console.log(error)
+  console.log(d1, err1)
 }
 
 

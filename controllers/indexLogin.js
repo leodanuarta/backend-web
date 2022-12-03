@@ -7,39 +7,39 @@ const login = async (req, res, next) => {
 // function untuk login setelah register
 const userLogin = async (req, res, next) => {
 
-  const { data: userSignup, error: errUserSignup } = await supabase.auth.signUp(
-    {
-      email: req.body.email,
-      password: req.body.confirm_password,
-      options: {
-        data: {
-          first_name: req.body.firstname,
-          last_name: req.body.lastname,
-          dob: req.body.dob,
-          phone: req.body.notel,
-        }
-      }
-    }
-  )
-
-  // let pass = req.body.firstName;
-  // console.log(pass)
-  // const { user, session, error } = await supabase.auth.signUp(
+  // const { data: userSignup, error: errUserSignup } = await supabase.auth.signUp(
   //   {
   //     email: req.body.email,
   //     password: req.body.confirm_password,
-  //   },
-  //   {
-  //     data: {
-  //       first_name: req.body.firstname,
-  //       last_name: req.body.lastname,
-  //       // dob: req.body.dob,
-  //       // phone: req.body.notel,
+  //     options: {
+  //       data: {
+  //         first_name: req.body.firstname,
+  //         last_name: req.body.lastname,
+  //         dob: req.body.dob,
+  //         phone: req.body.notel,
+  //       }
   //     }
   //   }
   // )
 
-  console.log(userSignup)
+  // let pass = req.body.firstName;
+  // console.log(pass)
+  const { user, session, error } = await supabase.auth.signUp(
+    {
+      email: req.body.email,
+      password: req.body.confirm_password,
+    },
+    {
+      data: {
+        first_name: req.body.firstname,
+        last_name: req.body.lastname,
+        dob: req.body.dob,
+        phone: req.body.notel,
+      }
+    }
+  )
+
+  console.log(user, session, error)
 
   console.log(req.body.email)
   console.log(req.body.confirm_password)
@@ -48,7 +48,7 @@ const userLogin = async (req, res, next) => {
   console.log(req.body.dob)
   console.log(req.body.notel)
   
-  return res.render('user/login')
+  // return res.render('user/login')
 }
 
 module.exports ={

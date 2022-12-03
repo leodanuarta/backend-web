@@ -32,3 +32,7 @@ $(document).ready(function(){
         }
     }
 });
+
+// function removeDisabled() {
+//     $('#tujuanP').removeAttr('disabled')
+// }

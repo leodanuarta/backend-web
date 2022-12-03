@@ -89,8 +89,10 @@
                 <span>Total Harga</span>
                 <span>
                   Rp
-                  <%= dataK[0].harga * penumpang %>
+                  <span id="harga"><%= dataK[0].harga * penumpang %> </span>
                 </span>
+              </div>
+              <div class="row harga rowPromo justify-content-between" id="rowPromo">
               </div>
             </div>
           </div>
@@ -101,12 +103,13 @@
             </div>
             <div class="row promo">
               <div>
-                <form id="kode">
-                  <input class="kode" type="text" placeholder="Masukan Kode Promo" name="kodePromo">
-                </form>
+                <input class="kode" type="text" placeholder="Masukan Kode Promo" id="kodePromo">
               </div>
               <div>
-                <button type="submit" class="rounded btn btn-warning apply">Apply</button>
+                <button onclick="promo()" type="button" id="apply" class="rounded btn btn-warning apply">Apply</button>
+              </div>
+              <div>
+                <span id="message"></span>
               </div>
             </div>
           </div>
@@ -126,5 +129,6 @@
   
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  <script src="/js/pembayaranK.js"></script>
 </body>
 </html>

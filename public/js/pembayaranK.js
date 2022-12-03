@@ -1,8 +1,8 @@
- function promo(){
+function promo(){
   let harga = $('#harga').text()
-  let hargaPromo;
+  let hargaPromo
   switch ($('#kodePromo').val()) {
-    case ('PIGIFLY') :
+    case ('GITRAIN') :
       hargaPromo = harga * 0.5
       console.log(harga)
       $('#harga').html('<del>' + harga + '</del>')
