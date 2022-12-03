@@ -4,6 +4,9 @@ const supabase = require('../database');
 const pesawat = async (req, res, next) => {
   const { data, error } = await supabase.from('provinsi').select()
   
+  // console.log(req.body.userFN)
+  console.log(req.body)
+  
   // console.log(data)
   return res.render("pesawatF/pesawat", {provs : data});
 }
@@ -224,6 +227,10 @@ const cariTiket = async (req, res, next) => {
 
 }
 
+const Upesawat = async (req, res, next) => {
+  console.log(req.body)
+}
+
 
 
 module.exports ={
@@ -232,4 +239,5 @@ module.exports ={
   datapemesanP,
   cetakTiketP,
   cariTiket,
+  Upesawat,
 }

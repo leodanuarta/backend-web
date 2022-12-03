@@ -31,17 +31,25 @@ const userRegister = async (req, res, next) => {
 
 const userLogin = async (req, res, next) => {
 
-  console.log(req.body)
+  // console.log(req.body)
   const { data: signin, error: signinErr } = await supabase.auth.signInWithPassword({
     email: req.body.email,
     password: req.body.password
   })
-  console.log(signin, signinErr)
+  // console.log(signin, signinErr)
   const { data: userData, error: userDataErr } = await supabase
   .from('account')
   .select()
   .eq('id', signin.user.id)
-  console.log(userData)
+  // console.log(userData)
+
+  // const { data, error } = await supabase.auth.getSession()
+  // const { data: { user } } = await supabase.auth.getUser()
+
+  // const user = await supabase.auth.session()
+  // console.log(user)
+
+  // console.log(data, error)
   res.render('indexUser', {user: userData})
 }
 

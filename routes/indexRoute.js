@@ -15,7 +15,7 @@ const { kereta, pembayaranK, datapemesanK, cetakTiketK, cariTiketK } = require('
 
 
 // source pesawat 
-const { pesawat, datapemesanP, pembayaranP, cetakTiketP, cariTiket } = require('../controllers/indexPesawat');
+const { pesawat, datapemesanP, pembayaranP, cetakTiketP, cariTiket, Upesawat} = require('../controllers/indexPesawat');
 
 
 // source login
@@ -54,6 +54,7 @@ router.post("/kereta/tiket/e-tiket/:orderID", cetakTiketK);
 // folder pesawat
 
 router.get("/pesawat", pesawat);
+router.post("/pesawat", Upesawat);
 router.post("/pesawat/tiket", cariTiket);
 router.get("/pesawat/tiket/data/:ruteP/:berangkatP/:dewasaP/:anakP/:bayiP", datapemesanP);
 router.post("/pesawat/tiket/bayar/:ruteP/:berangkatP/:dewasaP/:anakP/:bayiP", pembayaranP);

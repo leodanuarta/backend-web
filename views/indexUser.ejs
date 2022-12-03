@@ -10,27 +10,14 @@
     <title>PigiPigi</title>
   </head>
   <body>
+
   <div class = "awal">
-    <!-- First Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-      <div class="container">
-        <a class="navbar-brand" href="/"><img src="/assets/logo2.svg" width="150"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-          </svg>
-        </button>
-        <div class="collapse navbar-collapse flex-row-reverse" id="navbarCollapse">
-          <div class="navbar-nav">
-            <a class="nav-link text-white font-weight-bold px-2 mr-2" href="/cekorder">Cek Order</a>
-            <form action="/logout" class="form-inline mt-2 mt-md-0">
-              <button class="nav-link bg-primary text-white font-weight-bold rounded px-3">Logout</button>
-            </form>
-          </div>
-        </div>
-      </div>  
-    </nav>
+   <% if (user[0].id == null) { %>
+      <%- include('./partials/firstNavbar',  {page: 'index', login: 'false'}); %>
+   <% } else { %>
+      <%- include('./partials/firstNavbar',  {page: 'index', login: 'true'}); %>
+    <% } %>
+
     <div class="container">
       <p class="text">Hi
         <%= user[0].namadepan%> <%= user[0].namabelakang%>,
@@ -55,31 +42,13 @@
   </div>
 
   <!-- Second Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="secNav">
-    <div class="container">
-      <a class="navbar-brand" href="/index"><img src="/assets/logo2.svg" width="150"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-          <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-        </svg>
-      </button>
-      <div class="collapse navbar-collapse flex-row justify-content-between" id="navbarCollapse">
-        <div class="navbar-nav">
-          <a class="textNav nav-link font-weight-bold px-2" href="/pesawat">Pesawat</a>
-          <a class="textNav nav-link font-weight-bold px-2" href="/kereta">Kereta</a> 
-        </div>
-        <div class="navbar-nav">
-          <!-- <a class="nav-link font-weight-bold px-2" href="#">Elite Rewards</a> -->
-          <a class="nav-link font-weight-bold px-2 mr-2" href="/cekorder">Cek Order</a>
-          <form class="form-inline mt-2 mt-md-0">
-            <a class="nav-link bg-primary text-white font-weight-bold rounded px-3" href="/login">Login / Daftar</a>
-          </form>
-        </div>
-      </div>
-    </div>  
-  </nav>
+  <% if (user[0].id == null) { %>
+    <%- include('./partials/secondNavbar',  {page: 'index', login: 'false'}); %>
+ <% } else { %>
+    <%- include('./partials/secondNavbar',  {page: 'index', login: 'true'}); %>
+  <% } %>
 
+  
 
   <!-- Carousel -->
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -126,7 +95,12 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-
+  <form action="/pesawat" method="POST">
+    <div class="user">
+      <input name="userFN" value="<%= user[0].namadepan %>">
+      <h1 name="userLN"><%= user[0].namabelakang %></h1>
+    </div>
+  </form>
   <hr class="featurette-divider">
   <!-- Destination -->
   <div class="container">
@@ -199,6 +173,9 @@
 
     <!-- Footer -->
     <%- include('./partials/footer',  {page: 'produk'}); %>
+
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

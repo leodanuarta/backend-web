@@ -26,9 +26,16 @@
         <% } else { %>
           <a class="nav-link font-weight-bold px-2 mr-2" href="/cekorder">Cek Order</a>
         <% } %>
-        <form class="form-inline mt-2 mt-md-0">
-          <a class="nav-link bg-primary text-white font-weight-bold rounded px-3" href="/login">Login / Daftar</a>
-        </form>
+
+        <% if (login == 'true') { %>
+          <form action="/logout" class="form-inline mt-2 mt-md-0">
+            <button style="border:none;" class="nav-link bg-primary text-white font-weight-bold rounded px-3">Logout</button>
+          </form>
+        <% } else { %>
+          <form class="form-inline mt-2 mt-md-0">
+            <a class="nav-link bg-primary text-white font-weight-bold rounded px-3" href="/login">Login / Daftar</a>
+          </form>
+        <% } %>
       </div>
     </div>
   </div>  
