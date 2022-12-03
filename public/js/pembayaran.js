@@ -68,8 +68,8 @@
       $('#apply').attr("disabled", "disabled")
       $('#kodePromo').attr("disabled", "disabled")
       $('#message').html('<div class="text-success">SIP PROMO SUDAH TERPASANG</div>');
-      break;
-    
+      break;    
+
     default: 
       $('#message').html('<div class="text-danger">KODE PROMO ANDA TIDAK VALID !</div>');
   }

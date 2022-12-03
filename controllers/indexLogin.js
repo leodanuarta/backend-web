@@ -5,53 +5,57 @@ const login = async (req, res, next) => {
 }
 
 // function untuk login setelah register
+const userRegister = async (req, res, next) => {
+  console.log(req.body)
+  const { data: signup, error: signupErr } = await supabase.auth.signUp({
+    email: req.body.email,
+    password: req.body.password1,
+  })
+
+  const { data: signupData, error: signupDataError } = await supabase
+  .from('account')
+  .insert([
+    { 
+      id: signup.user.id, 
+      namadepan: req.body.firstname, 
+      namabelakang: req.body.lastname, 
+      dob: req.body.dob, 
+      notel: req.body.notel,
+    }
+  ])
+
+  console.log(signup, signupErr)
+  console.log(signupData)
+  return res.redirect('/login')
+}
+
 const userLogin = async (req, res, next) => {
 
-  // const { data: userSignup, error: errUserSignup } = await supabase.auth.signUp(
-  //   {
-  //     email: req.body.email,
-  //     password: req.body.confirm_password,
-  //     options: {
-  //       data: {
-  //         first_name: req.body.firstname,
-  //         last_name: req.body.lastname,
-  //         dob: req.body.dob,
-  //         phone: req.body.notel,
-  //       }
-  //     }
-  //   }
-  // )
+  console.log(req.body)
+  const { data: signin, error: signinErr } = await supabase.auth.signInWithPassword({
+    email: req.body.email,
+    password: req.body.password
+  })
+  console.log(signin, signinErr)
+  const { data: userData, error: userDataErr } = await supabase
+  .from('account')
+  .select()
+  .eq('id', signin.user.id)
+  console.log(userData)
+  res.render('indexUser', {user: userData})
+}
 
-  // let pass = req.body.firstName;
-  // console.log(pass)
-  const { user, session, error } = await supabase.auth.signUp(
-    {
-      email: req.body.email,
-      password: req.body.confirm_password,
-    },
-    {
-      data: {
-        first_name: req.body.firstname,
-        last_name: req.body.lastname,
-        dob: req.body.dob,
-        phone: req.body.notel,
-      }
-    }
-  )
+const userLogout = async (req, res, next) => {
+  const { error } = await supabase.auth.signOut()
 
-  console.log(user, session, error)
+  console.log(error)
 
-  console.log(req.body.email)
-  console.log(req.body.confirm_password)
-  console.log(req.body.firstname)
-  console.log(req.body.lastname)
-  console.log(req.body.dob)
-  console.log(req.body.notel)
-  
-  // return res.render('user/login')
+  res.redirect('/')
 }
 
 module.exports ={
   login,
+  userRegister,
   userLogin,
+  userLogout,
 }
