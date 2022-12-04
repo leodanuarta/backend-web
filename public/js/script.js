@@ -29,7 +29,7 @@ $(document).ready(function() {
   var dt = new Date($.now());
   var time = dt.getHours();
 
-  if (time > 0 && time < 10) {
+  if (time >= 0 && time < 10) {
     $('#tampilsalam').html('<span class="text" >Selamat pagi,</span>');
   } else if (time >= 10 && time < 15) {
     $('#tampilsalam').html('<span class="text">Selamat siang,</span>'); 

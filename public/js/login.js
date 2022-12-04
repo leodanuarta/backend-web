@@ -74,11 +74,15 @@ $(function() {
   
   $(document).ready(function(){
     $("#confirm_password").bind('keyup change', function(){
-      check_Password( $("#password1").val(), $("#confirm_password").val() )
-  
+      check_Password( $("#password1").val(), $("#confirm_password").val())
     $("#btn-daf").click(function(){
       check_Password( $("#password1").val(), $("#confirm_password").val() )
-    })
+    });
+
+    $("#btn-daf").click(function(){
+      alert("Silahkan cek email Anda untuk konfirmasi")
+      process.exit();
+    }); 
   });
   
   function check_Password( Pass, Con_Pass){
@@ -87,7 +91,7 @@ $(function() {
     }else if( Pass === Con_Pass){
       $("#btn-daf").removeAttr("disabled")
       $('#confirm_password_msg').show()
-    $("#confirm_password_msg").html('<div class="text-success">Password matched</div>')
+      $("#confirm_password_msg").html('<div class="text-success">Password matched</div>')
     }else{
       $("#confirm_password").focus()
       $('#confirm_password_msg').show()
@@ -127,3 +131,10 @@ $("#eye2").click(function() {
     $('#eye2').toggleClass("fa-eye-slash fa-eye");
   }
 });
+
+
+
+
+
+
+ 
