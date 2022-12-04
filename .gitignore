@@ -4,3 +4,4 @@ config/
 models/
 seeders/
 migrations/
+.env/

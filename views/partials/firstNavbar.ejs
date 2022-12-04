@@ -9,15 +9,17 @@
     </button>
     <div class="collapse navbar-collapse flex-row justify-content-between" id="navbarCollapse">
       <div class="navbar-nav">
-        <% if (page == 'pesawat') { %>
-          <a class="textNav nav-link font-weight-bold px-2 active" href="/pesawat">Pesawat</a>
-        <% } else { %>
-          <a class="textNav nav-link font-weight-bold px-2" href="/pesawat">Pesawat</a>
-        <% } %>
-        <% if (page == 'kereta') { %>
-          <a class="active textNav nav-link font-weight-bold px-2" href="/kereta">Kereta</a> 
-        <% } else { %>
-          <a class="textNav nav-link font-weight-bold px-2" href="/kereta">Kereta</a> 
+        <% if (page != 'index') { %>
+          <% if (page == 'pesawat') { %>
+            <a class="textNav nav-link font-weight-bold px-2 active" href="/pesawat">Pesawat</a>
+          <% } else { %>
+            <a class="textNav nav-link font-weight-bold px-2" href="/pesawat">Pesawat</a>
+          <% } %>
+          <% if (page == 'kereta') { %>
+            <a class="active textNav nav-link font-weight-bold px-2" href="/kereta">Kereta</a> 
+          <% } else { %>
+            <a class="textNav nav-link font-weight-bold px-2" href="/kereta">Kereta</a> 
+          <% } %>
         <% } %>
       </div>
       <div class="navbar-nav">
@@ -27,11 +29,11 @@
           <a class="nav-link font-weight-bold px-2 mr-2" href="/cekorder">Cek Order</a>
         <% } %>
 
-        <% if (login == 'true') { %>
+        <% if (page == 'index' && login == 'true') { %>
           <form action="/logout" class="form-inline mt-2 mt-md-0">
             <button style="border:none;" class="nav-link bg-primary text-white font-weight-bold rounded px-3">Logout</button>
           </form>
-        <% } else { %>
+        <% } else if (page == 'index' && login == 'false') { %>
           <form class="form-inline mt-2 mt-md-0">
             <a class="nav-link bg-primary text-white font-weight-bold rounded px-3" href="/login">Login / Daftar</a>
           </form>

@@ -75,6 +75,7 @@ const Etiket = async (req, res, next) => {
     .select(`*, 
             kereta(namaKereta), asal: kotaAsal(namaKota, namaStasiun), tujuan: kotaTujuan(namaKota, namaStasiun)`)
     .eq('ruteID', results[0].ruteK);
+    console.log(allData);
 
     return res.render('keretaF/cetakTiketK', {
       orderID: orderID + 7000,
