@@ -18,11 +18,14 @@
       <%- include('./partials/firstNavbar',  {page: 'index', login: 'true'}); %>
     <% } %>
 
-    <div class="container">
-      <p class="text">Hi
-        <%= user[0].namadepan%> <%= user[0].namabelakang%>,
-        mo pi mana?</p>
+    <div class="container text-center">
+      <span class="text">
+        <span id="tampilsalam"></span>
+        <%= user[0].namadepan%> <%= user[0].namabelakang%> <br>
+        mo pi mana?
+      </span>
     </div>
+    <br>
 
     <!-- Circle Icon -->
     <div class="row">
