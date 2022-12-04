@@ -31,6 +31,6 @@ app.listen(port, (err) => {
     console.log(err);
     process.exit(1);
   } else {
-    console.log(`Server runs at port ${process.env.PORT}`);
+    console.log(`Server runs at port ${port}`);
   }
 });
