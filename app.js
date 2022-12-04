@@ -1,4 +1,3 @@
-const port = 5050;
 // import packets
 const path = require("path");
 const express = require("express");
@@ -31,6 +30,6 @@ app.listen(port, (err) => {
     console.log(err);
     process.exit(1);
   } else {
-    console.log(`Server runs at port ${port}`);
+    console.log(`Server runs at port ${process.env.PORT}`);
   }
 });
