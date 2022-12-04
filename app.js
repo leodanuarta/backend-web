@@ -26,11 +26,11 @@ app.use("/", index);
 
 
 
-app.listen(port, (err) => {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  } else {
-    console.log(`Server runs at port ${port}`);
-  }
-});
+// app.listen(port, (err) => {
+//   if (err) {
+//     console.log(err);
+//     process.exit(1);
+//   } else {
+//     console.log(`Server runs at port ${port}`);
+//   }
+// });
