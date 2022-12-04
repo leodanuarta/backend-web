@@ -25,7 +25,7 @@ $(document).ready(function(){
     
         if( asal === tujuan){
             $("#searchButton").attr("disabled", "disabled")
-            $("#message").html('<div class="text-danger">Provinsi asal dan tujuan tidak boleh sama!</div>')
+            $("#message").html('<div class="text-danger">Kota asal dan tujuan tidak boleh sama!</div>')
         } else {
             $("#searchButton").removeAttr("disabled")
             $("#message").html('<div> </div>')
